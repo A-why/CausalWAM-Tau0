@@ -1,0 +1,25 @@
+# Closed-loop evaluation — SMOKE settings manifest.
+#
+# Like configs/server_large/large_eval.yaml, this is a settings MANIFEST: the
+# eval orchestrator (scripts/eval_theta_init_multi_closed_loop.py) consumes
+# equivalent CLI flags, not this file. The smoke run is:
+#
+#   bash scripts/06_eval_all.sh --tasks turn_switch --episodes 1 --launch-server
+#
+# Only the reducible axes are shrunk: task count (1) and evaluation episodes (1).
+# VAM server / RoboTwin env / action adapter / official reward are UNCHANGED.
+
+server:
+  # τ0 VAM server endpoint (see scripts/03_launch_vam_server.sh).
+  host: 127.0.0.1
+  port: 8765
+
+# [SMOKE] reduced scope.
+smoke:
+  tasks: [turn_switch]      # one task
+  episodes: 1               # one episode (production convention: 3)
+
+# Frozen experiment logic (do not change).
+experiment:
+  execution_step: 33
+  inference_steps: 5

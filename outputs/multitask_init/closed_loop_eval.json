@@ -1,0 +1,42 @@
+{
+  "schema": "theta-init-multi-closed-loop-v1",
+  "episodes_per_task": 1,
+  "records": {
+    "turn_switch": {
+      "task": "turn_switch",
+      "instruction": "use the robotic arm to click the switch",
+      "statistics": "/data/QWW/CausalWAM-Tau0/datasets/tau0_robotwin_multitask_v0/turn_switch/statistics_relative_v2.json",
+      "episodes": [
+        {
+          "seed": 0,
+          "status": "PASS",
+          "success": false,
+          "official_reward": 0.0,
+          "official_reward_binary": true,
+          "actions_executed": 400,
+          "policy_calls": 13,
+          "horizon": 400,
+          "finite_actions": true,
+          "elapsed_sec": 332.53251
+        }
+      ],
+      "episodes_complete": 1,
+      "successes": 0,
+      "success_rate": 0.0,
+      "execution_step": 33,
+      "inference_steps": 5,
+      "elapsed_sec": 332.532592,
+      "process_isolation": "one-task-one-process",
+      "returncode": 0
+    }
+  },
+  "N_ready": 49,
+  "tasks_complete": 1,
+  "tasks_success_gt_0": 0,
+  "tasks_success_eq_0": [
+    "turn_switch"
+  ],
+  "total_successes": 0,
+  "total_episodes": 1,
+  "overall_success": 0.0
+}

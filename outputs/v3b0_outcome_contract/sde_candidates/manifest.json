@@ -1,0 +1,46 @@
+{
+  "phase": "V3-B0 SDE candidate generation",
+  "checkpoint": "/data/QWW/CausalWAM-Tau0/checkpoints/pbb2_turn_switch/step_802",
+  "stats": "/data/QWW/CausalWAM-Tau0/datasets/tau0_robotwin_success_v3_lerobot/turn_switch/statistics_relative_v2.json",
+  "stats_sha256_prefix": "0eda42bdbd2d43d7",
+  "action_type": "relative",
+  "action_space": "eef6d",
+  "sde_config": {
+    "sde_type": "plain sigma-interpolation (Gaussian isotropic, Wan2.1)",
+    "L": 5,
+    "shift": 1.0,
+    "num_train_timesteps": 1000,
+    "timesteps": [
+      999,
+      799,
+      599,
+      399,
+      199
+    ],
+    "sigmas": [
+      0.9990000128746033,
+      0.7991999983787537,
+      0.599399983882904,
+      0.39959999918937683,
+      0.19979999959468842,
+      0.0
+    ],
+    "noise": "std_dev_t = sigma_min + (sigma_max - sigma_min) * sigma"
+  },
+  "K": 4,
+  "num_inference_steps": 5,
+  "execution_steps": 33,
+  "shift": 1.0,
+  "sde_seeds": [
+    7000,
+    7001,
+    7002,
+    7003
+  ],
+  "snapshots": [
+    "S0"
+  ],
+  "n_candidates": 4,
+  "optimizer_step": 0,
+  "training": false
+}

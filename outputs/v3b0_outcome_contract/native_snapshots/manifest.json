@@ -1,0 +1,32 @@
+{
+  "phase": "V3-B0 native snapshot capture",
+  "seed": 0,
+  "task": "turn_switch",
+  "model_name": "056_switch",
+  "model_id": 2,
+  "limit_upper": 0.19198621809482574,
+  "threshold": 0.14198621809482576,
+  "success": "True",
+  "final_qpos": 0.19198621809482574,
+  "n_steps": 1264,
+  "snapshot_indices": {
+    "S0": 846,
+    "S1": 848,
+    "S2": 853,
+    "S3": 857
+  },
+  "snapshot_switch_qpos": {
+    "S0": 5.478114056128858e-12,
+    "S1": 0.013057870790362358,
+    "S2": 0.08143450319766998,
+    "S3": 0.1378161609172821
+  },
+  "snapshot_definitions": {
+    "S0": "last step with switch qpos == 0 before the ramp (switch OFF, pre-contact)",
+    "S1": "first step with switch qpos > 0.01 (contact, near floor)",
+    "S2": "first step with switch qpos >= 0.5*threshold (partial progress)",
+    "S3": "first step with switch qpos >= threshold-0.005 (near threshold, pre-success)"
+  },
+  "optimizer_step": 0,
+  "training": false
+}

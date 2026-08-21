@@ -1,0 +1,51 @@
+# =============================================================================
+# Server-large throughput settings for the 49-task closed-loop initialization
+# evaluation (scripts/06_eval_all.sh -> scripts/eval_theta_init_multi_closed_loop.py
+# -> scripts/robotwin_theta_init_eval_one.py).
+#
+# This is a settings manifest, not a model/training config. Only the fields
+# marked [THROUGHPUT] may be raised on a large server. Every other field below
+# is frozen experiment logic and MUST NOT change: the episode/seed convention
+# (3 per task), the action chunk (33), the SDE flow steps (5), and the
+# 49-task READY suite are all part of the formal method.
+#
+# The orchestrator currently consumes the equivalent CLI flags; the parallel
+# workers knob documents the intended large-server deployment (one isolated
+# task process per worker — each task runs its own RoboTwin env and connects
+# to the shared τ0 VAM server).
+# =============================================================================
+
+server:
+  # τ0 VAM server endpoint (see scripts/03_launch_vam_server.sh).
+  host: 127.0.0.1
+  port: 8765
+
+# [THROUGHPUT] Eval parallel workers: number of task subprocesses to run
+# concurrently. The current orchestrator is sequential (workers = 1). On a
+# large server, set workers to min(n_gpus, n_cpu_cores // 4); the VAM server
+# stays a single shared process, so worker count is bounded by RoboTwin env
+# memory / CPU, not by the VAM checkpoint. This is a deployment/throughput
+# change only — it does not alter the per-task episode/seed convention.
+parallel_workers: 8
+
+# [THROUGHPUT] Rollout batch: episodes/seeds evaluated per task. The eval child
+# (robotwin_theta_init_eval_one.py --episodes) evaluates seeds sequentially.
+# NOTE: the episode/seed CONVENTION is frozen at 3 (see below); do not change
+# this field to change the experiment — it is listed only to mark the rollout
+# axis. A large server parallelizes across tasks (parallel_workers), not by
+# inflating the episode count.
+rollout_batch: 3
+
+# ---- Frozen experiment logic (do not change) ----
+experiment:
+  # Number of episodes / seeds per task. Part of schema theta-init-multi-
+  # closed-loop-v1. Frozen.
+  episodes_per_task: 3
+  # Action chunk length (native action_chunk=33).
+  execution_step: 33
+  # SDE flow / denoising steps per inference.
+  inference_steps: 5
+  # Suite manifest the orchestrator reads (49 READY tasks).
+  suite_manifest: ${CAUSALWAM_ROOT}/outputs/multitask_init/final_ready_tasks.json
+  # Results are written here (resumable).
+  output: ${CAUSALWAM_ROOT}/outputs/multitask_init/closed_loop_eval.json

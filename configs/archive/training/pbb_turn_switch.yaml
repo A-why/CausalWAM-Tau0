@@ -1,0 +1,110 @@
+action_dropout_p: 0.2
+allow_tf32: false
+batch_size: 1
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+caption_dropout_p: 0.5
+data:
+  public_args:
+    action_chunk: 33
+    action_space: eef6d
+    action_type: relative
+    chunk: 9
+    ignore_seek: false
+  train:
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_tau0/turn_switch_pbb_abs_eef6d.yaml
+  val:
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_tau0/turn_switch_pbb_abs_eef6d.yaml
+dataloader_num_workers: 2
+ddp_kwargs:
+  bucket_cap_mb: 100
+  find_unused_parameters: false
+  gradient_as_bucket_view: true
+diffusion_model:
+  config:
+    action_dim: 1024
+    action_ffn_dim: 2048
+    action_in_dim: 20
+    action_max_seq_len: 60
+    action_num_heads: 16
+    cross_attn_norm: true
+    dim: 3072
+    eps: 1.0e-06
+    ffn_dim: 14336
+    freq_dim: 256
+    in_dim: 48
+    model_type: ti2v
+    num_heads: 24
+    num_layers: 30
+    out_dim: 48
+    patch_size:
+    - 1
+    - 2
+    - 2
+    qk_norm: true
+    text_dim: 4096
+    text_len: 512
+    use_ae: true
+    window_size:
+    - -1
+    - 1
+  model_path: ${CAUSALWAM_ROOT}/checkpoints/tau0_wm/vam
+diffusion_model_class: WanModel
+diffusion_model_class_path: models/wan_2_2_models/transformers/model.py
+epsilon: 1.0e-08
+flow_logit_mean: 0.0
+flow_logit_std: 1.0
+gradient_accumulation_steps: 1
+gradient_checkpointing: false
+latest_epoch: 5
+latest_global_step: 700
+latest_log_dir: ${CAUSALWAM_ROOT}/outputs/pbb/turn_switch/2026_08_12_02_29_06/step_700
+load_weights: true
+logging_dir: logs
+lr: 5.0e-05
+lr_num_cycles: 1
+lr_power: 1.0
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 0
+max_grad_norm: 1.0
+mixed_precision: bf16
+model_name: tau_train_pbb
+nccl_timeout: 1000
+noisy_video: false
+num_inference_step: 5
+optimizer: adamw
+optimizer_8bit: false
+optimizer_path: ${CAUSALWAM_ROOT}/outputs/pbb/turn_switch/2026_08_12_02_29_06/latest_accelerator_state
+optimizer_torchao: false
+output_dir: ${CAUSALWAM_ROOT}/outputs/pbb/turn_switch
+pin_memory: true
+pipeline_class: WanTI2V
+pipeline_class_path: models/wan_2_2_models/pipeline/textimage2video.py
+repeat_in_batch: 1
+report_to: none
+return_action: true
+return_video: true
+scale_lr: false
+seed: 42
+steps_to_log: 1
+steps_to_save: 100
+steps_to_val: 50
+text_encoder:
+  checkpoint_path: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/models_t5_umt5-xxl-enc-bf16.pth
+  text_len: 512
+  tokenizer_path: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/google/umt5-xxl
+textenc_class: T5EncoderModel
+textenc_class_path: models/wan_2_2_models/text_encoder/t5.py
+tracker_name: tau_trainer_pbb
+train_epochs: 7
+train_mode: video+action
+train_steps: 800
+use_color_jitter: true
+use_deepspeed: false
+vae_class: Wan2_2_VAE_Batch
+vae_class_path: models/wan_2_2_models/vae/vae2_2.py
+vae_encoding_mode: 3dvae
+vae_path: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/Wan2.2_VAE.pth
+val_shuffle: true
+weight_decay: 1.0e-05

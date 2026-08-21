@@ -1,0 +1,39 @@
+# Checkpoint configuration for τ₀-WM V0-B
+# Validated by: scripts/validate_tau0_checkpoints.py
+
+tau0:
+  # Root for all τ₀ checkpoints
+  root: ${CAUSALWAM_ROOT}/checkpoints/tau0_wm
+
+  vam:
+    # VAM pretrained diffusion model directory
+    # Must contain: diffusion_pytorch_model.safetensors.index.json + shard files
+    # OR: diffusion_pytorch_model.bin.index.json + shard files
+    model_dir: ${CAUSALWAM_ROOT}/checkpoints/tau0_wm/vam
+
+  simulator:
+    # ACVS/Simulator pretrained diffusion model directory
+    model_dir: ${CAUSALWAM_ROOT}/checkpoints/tau0_wm/simulator
+
+# Wan2.2-TI2V-5B shared backbone (required by both VAM and ACVS)
+wan:
+  root: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b
+
+  vae:
+    # Video VAE weights
+    file: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/Wan2.2_VAE.pth
+
+  t5:
+    # T5-XXL text encoder weights
+    checkpoint: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/models_t5_umt5-xxl-enc-bf16.pth
+
+    # UMT5 tokenizer directory (HuggingFace format)
+    tokenizer_dir: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/google/umt5-xxl
+
+# Normalization statistics
+statistics:
+  # VAM policy statistics (bundled in repo, may need recomputation for RoboTwin)
+  policy: ${CAUSALWAM_ROOT}/tau-0-wm/configs/deployment/statistics.json
+
+  # Simulator statistics (bundled in repo)
+  simulator: ${CAUSALWAM_ROOT}/tau-0-wm/configs/deployment/statistics_sim.json

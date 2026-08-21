@@ -1,0 +1,25 @@
+# checkpoints
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.bin
+
+# datasets
+datasets/
+data/
+
+# cache
+.cache/
+__pycache__/
+*.pyc
+
+# logs
+logs/
+wandb/
+
+# vscode
+.vscode/
+
+# models
+*.safetensors

@@ -1,0 +1,42 @@
+# τ₀ ↔ RoboTwin Adapter Configuration
+# All values verified from source code, not guessed.
+
+task: turn_switch
+seed: 42
+
+camera_mapping:
+  tau_view_0: head_camera
+  tau_view_1: left_camera
+  tau_view_2: right_camera
+
+tau:
+  image_height: 192
+  image_width: 256
+  state_quaternion_order: xyzw
+  action_space: eef6d
+  action_dim: 20
+  action_chunk: 33
+  gripper_state_range: [0, 120]   # 0=open, 120=close
+  gripper_action_range: [0, 1]    # 0=open, 1=close
+
+robotwin:
+  quaternion_order: wxyz          # transforms3d convention
+  gripper_range: [0.0, 1.0]       # 0=close, 1=open
+  control_mode: ee
+  ee_action_dim: 16
+  ee_per_arm_dim: 7               # xyz(3) + quat_wxyz(4)
+  camera_type: D435
+  camera_height: 240
+  camera_width: 320
+
+action:
+  chunk_length: 33
+  execute_horizon: 1              # Only first step in V0-C smoke
+
+coordinate_frame:
+  tau_state: "arm_base"           # Per README: relative to Arm Base link
+  tau_action: "arm_base"          # Per README
+  robotwin_state: "robot_base"    # EEF pose in world frame relative to robot base origin
+  robotwin_control: "robot_base"  # EE control expects poses in world frame
+  conversion: "UNKNOWN"           # Needs runtime verification
+  status: "UNKNOWN"

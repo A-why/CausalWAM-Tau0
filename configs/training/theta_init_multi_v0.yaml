@@ -1,0 +1,160 @@
+action_dropout_p: 0.2
+allow_tf32: false
+batch_size: 1
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+caption_dropout_p: 0.5
+data:
+  public_args:
+    action_chunk: 33
+    action_space: eef6d
+    action_type: relative
+    chunk: 9
+    ignore_seek: false
+  train:
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/adjust_bottle.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/beat_block_hammer.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/blocks_ranking_rgb.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/blocks_ranking_size.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/click_alarmclock.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/click_bell.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/grab_roller.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/handover_block.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/handover_mic.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/hanging_mug.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/lift_pot.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/move_can_pot.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/move_pillbottle_pad.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/move_playingcard_away.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/move_stapler_pad.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/open_laptop.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/open_microwave.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/pick_diverse_bottles.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/pick_dual_bottles.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_a2b_left.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_a2b_right.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_bread_basket.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_bread_skillet.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_burger_fries.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_can_basket.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_cans_plasticbox.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_container_plate.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_dual_shoes.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_empty_cup.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_fan.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_mouse_pad.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_object_basket.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_object_scale.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_object_stand.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_phone_stand.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/place_shoe.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/press_stapler.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/put_bottles_dustbin.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/put_object_cabinet.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/rotate_qrcode.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/scan_object.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/shake_bottle.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/shake_bottle_horizontally.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/stack_blocks_three.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/stack_blocks_two.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/stack_bowls_three.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/stack_bowls_two.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/stamp_seal.yaml
+  - ${CAUSALWAM_ROOT}/configs/data/robotwin_multitask_v0/turn_switch.yaml
+dataloader_num_workers: 2
+ddp_kwargs:
+  bucket_cap_mb: 100
+  find_unused_parameters: false
+  gradient_as_bucket_view: true
+diffusion_model:
+  config:
+    action_dim: 1024
+    action_ffn_dim: 2048
+    action_in_dim: 20
+    action_max_seq_len: 60
+    action_num_heads: 16
+    cross_attn_norm: true
+    dim: 3072
+    eps: 1.0e-06
+    ffn_dim: 14336
+    freq_dim: 256
+    in_dim: 48
+    model_type: ti2v
+    num_heads: 24
+    num_layers: 30
+    out_dim: 48
+    patch_size:
+    - 1
+    - 2
+    - 2
+    qk_norm: true
+    text_dim: 4096
+    text_len: 512
+    use_ae: true
+    window_size:
+    - -1
+    - 1
+  model_path: ${CAUSALWAM_ROOT}/checkpoints/tau0_wm/vam
+diffusion_model_class: WanModel
+diffusion_model_class_path: models/wan_2_2_models/transformers/model.py
+epsilon: 1.0e-08
+flow_logit_mean: 0.0
+flow_logit_std: 1.0
+gradient_accumulation_steps: 1
+gradient_checkpointing: false
+latest_epoch: 0
+latest_global_step: 0
+latest_log_dir: null
+load_weights: true
+logging_dir: logs
+lr: 5.0e-05
+lr_num_cycles: 1
+lr_power: 1.0
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 0
+max_grad_norm: 1.0
+mixed_precision: bf16
+model_name: theta_init_multi_v0
+nccl_timeout: 1000
+noisy_video: false
+num_inference_step: 5
+optimizer: adamw
+optimizer_8bit: false
+optimizer_path: null
+optimizer_torchao: false
+output_dir: ${CAUSALWAM_ROOT}/outputs/theta_init_multi_v0
+pin_memory: true
+pipeline_class: WanTI2V
+pipeline_class_path: models/wan_2_2_models/pipeline/textimage2video.py
+repeat_in_batch: 1
+report_to: none
+return_action: true
+return_video: true
+scale_lr: false
+seed: 42
+steps_to_log: 1
+steps_to_save: 32341
+steps_to_val: 32341
+text_encoder:
+  checkpoint_path: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/models_t5_umt5-xxl-enc-bf16.pth
+  text_len: 512
+  tokenizer_path: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/google/umt5-xxl
+textenc_class: T5EncoderModel
+textenc_class_path: models/wan_2_2_models/text_encoder/t5.py
+tracker_name: tau_trainer_pbb2
+train_epochs: 1
+train_mode: video+action
+train_steps: 32340
+use_color_jitter: true
+use_deepspeed: false
+vae_class: Wan2_2_VAE_Batch
+vae_class_path: models/wan_2_2_models/vae/vae2_2.py
+vae_encoding_mode: 3dvae
+vae_path: ${CAUSALWAM_ROOT}/checkpoints/wan2.2-ti2v-5b/Wan2.2_VAE.pth
+val_shuffle: true
+weight_decay: 1.0e-05
+sub_folder: one_balanced_pass
+task_balanced_sampling: true
+task_balanced_epoch_samples: 32340
+multitask_training_log: ${CAUSALWAM_ROOT}/outputs/multitask_init/training_log.json
